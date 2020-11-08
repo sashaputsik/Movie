@@ -21,7 +21,7 @@ class OneMovieViewController: UIViewController {
         actorCollectionView.dataSource = self
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.alpha = 0.5
+        blurEffectView.alpha = 0.9
         blurEffectView.frame = backdropImageView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth,
                                            .flexibleHeight]

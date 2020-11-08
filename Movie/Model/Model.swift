@@ -3,7 +3,7 @@ import Foundation
 
 var topRatedMovies = [Movie]()
 var movieCredits = [Credits]()
-public let topRatedMovieUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=d3c585cce88b277f42e68ce10aa4358f&language=ru-RU&page=1"
+public let topRatedMovieUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=d3c585cce88b277f42e68ce10aa4358f&language=us-US&page=1"
 
 enum CodingKeys: String, CodingKey {
        case popularity

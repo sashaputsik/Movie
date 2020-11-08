@@ -4,7 +4,6 @@ import UIKit
 class FavoriteMoviesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var backButton: UIButton!
     var frc: NSFetchedResultsController<MovieData>?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -13,8 +12,6 @@ class FavoriteMoviesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
     func setRequest(){
@@ -35,9 +32,13 @@ class FavoriteMoviesViewController: UIViewController {
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        
     }
 
+    @objc
+    private func setUnwind(){
+        dismiss(animated: true,
+                completion: nil)
+    }
 }
 
 extension FavoriteMoviesViewController: NSFetchedResultsControllerDelegate{

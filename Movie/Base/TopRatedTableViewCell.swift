@@ -34,6 +34,7 @@ class TopRatedTableViewCell: UITableViewCell {
         movie.posterPath = posterPath
         movie.title = title
         movie.voteAverage = voteAverage
+        print(voteAverage)
         context.insert(movie)
         DataConfig().appDelegate.saveContext()
         print(context)

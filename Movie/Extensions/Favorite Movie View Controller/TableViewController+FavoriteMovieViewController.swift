@@ -29,6 +29,24 @@ extension FavoriteMoviesViewController: UITableViewDataSource{
 
 //MARK: UITableViewDelegate
 extension FavoriteMoviesViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "OneMovieViewController") as? OneMovieViewController else{return }
+        guard let movie = frc?.object(at: indexPath) else{return }
+        vc.id = Int(movie.id)
+        showDetailViewController(vc,
+                                 sender: nil)
+    }
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let context = frc?.managedObjectContext
+            guard let movie = frc?.object(at: indexPath) else {return }
+            context?.delete(movie)
+            DataConfig().appDelegate.saveContext()
+        }
+    }
 }
 
 
