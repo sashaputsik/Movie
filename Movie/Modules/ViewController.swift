@@ -22,5 +22,10 @@ class ViewController: UIViewController {
         tableView.isHidden = hidden
         activityIndicator.isHidden = !hidden
     }
+    
+    @IBAction override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
+        guard let vc = unwindSegue.source as? FavoriteMoviesViewController else{return }
+        print("back")
+    }
 }
 

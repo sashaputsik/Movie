@@ -4,22 +4,22 @@ import UIKit
 extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return topRatedMovies.count
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.id,
                                                        for: indexPath) as? TopRatedTableViewCell else{return UITableViewCell()}
-        guard let posterPath = movies[indexPath.row].posterPath,
-            let voteAverage = movies[indexPath.row].voteAverage,
-            let ganreId = movies[indexPath.row].genreIds?.first
+        guard let posterPath = topRatedMovies[indexPath.row].posterPath,
+            let voteAverage = topRatedMovies[indexPath.row].voteAverage,
+            let ganreId = topRatedMovies[indexPath.row].genreIds?.first
                 else{return UITableViewCell()}
         
-        cell.accessoryView = cell.button
-        cell.button.tag = indexPath.row
+        cell.accessoryView = cell.setFavoriteButton
+        cell.setFavoriteButton.tag = indexPath.row
         cell.posterImageView.image = UIImage(data: Parse.setImage(path: posterPath))
-        cell.titleLabel.text = movies[indexPath.row].title
+        cell.titleLabel.text = topRatedMovies[indexPath.row].title
         cell.voteAverageLabel.text = "★ \(voteAverage)"
         cell.genreLabel.text = Parse.genreArray[ganreId]
         return cell
@@ -36,7 +36,7 @@ extension ViewController: UITableViewDelegate{
         tableView.deselectRow(at: indexPath,
                               animated: true)
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "OneMovieViewController") as? OneMovieViewController else{return}
-        guard let id = movies[indexPath.row].id else{return}
+        guard let id = topRatedMovies[indexPath.row].id else{return}
         vc.id = id
         showDetailViewController(vc,
                                  sender: nil)

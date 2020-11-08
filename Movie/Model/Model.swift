@@ -1,7 +1,7 @@
 import CoreData
 import Foundation
 
-var movies = [Movie]()
+var topRatedMovies = [Movie]()
 var movieCredits = [Credits]()
 public let topRatedMovieUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=d3c585cce88b277f42e68ce10aa4358f&language=ru-RU&page=1"
 
@@ -120,7 +120,7 @@ class Parse{
                 let topMovie = try? JSONDecoder().decode(TopMovie.self,
                                                          from: data)
                 guard let results = topMovie?.results else{return }
-                movies = results
+                topRatedMovies = results
             }
             complitionHandler(nil)
         }.resume()
