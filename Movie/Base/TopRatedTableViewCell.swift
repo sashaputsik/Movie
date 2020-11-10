@@ -7,6 +7,7 @@ class TopRatedTableViewCell: UITableViewCell {
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var voteAverageLabel: UILabel!
     @IBOutlet weak var setFavoriteButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         posterImageView.layer.mask = setConfig(10,
@@ -36,6 +37,7 @@ class TopRatedTableViewCell: UITableViewCell {
         movie.voteAverage = voteAverage
         print(voteAverage)
         context.insert(movie)
+        
         DataConfig().appDelegate.saveContext()
         print(context)
     }

@@ -8,6 +8,7 @@ class FavoriteMoviesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setRequest()
+        
     }
     
     override func viewDidLoad() {
@@ -26,6 +27,8 @@ class FavoriteMoviesViewController: UIViewController {
                                                  sectionNameKeyPath: nil,
                                                  cacheName: nil)
         fetchRC.delegate = self
+        var array = [MovieData]()
+        array = try! context.fetch(fetchRequest)
         do {
             try fetchRC.performFetch()
             frc = fetchRC
@@ -44,8 +47,21 @@ class FavoriteMoviesViewController: UIViewController {
 extension FavoriteMoviesViewController: NSFetchedResultsControllerDelegate{
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.reloadData()
+        
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150.0
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?){
+        switch type {
+        case .delete:
+            guard let indexPath = indexPath else{return }
+            tableView.deleteRows(at: [indexPath], with: .left)
+        default:
+            print(type)
+        }
+        
     }
+
 }

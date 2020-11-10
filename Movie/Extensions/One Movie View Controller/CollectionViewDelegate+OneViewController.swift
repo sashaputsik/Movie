@@ -27,6 +27,7 @@ extension OneMovieViewController: UICollectionViewDelegate, UICollectionViewDele
                         didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath,
                                     animated: true)
+        print(movieCredits[indexPath.row].credit_id)
     }
     
     func collectionView(_ collectionView: UICollectionView,

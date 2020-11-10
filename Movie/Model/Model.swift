@@ -86,12 +86,18 @@ class Credits: Codable{
     var character: String?
     var name: String?
     var profile_path: String?
+    var credit_id: String?
     
     required init(decoder: Decoder) throws{
         let container = try? decoder.container(keyedBy: CodingKeys.self)
-        character = try? container?.decode(String.self, forKey: .character)
-        name = try? container?.decode(String.self, forKey: .name )
-        profile_path = try? container?.decode(String.self, forKey: .profile_path)
+        character = try? container?.decode(String.self,
+                                           forKey: .character)
+        name = try? container?.decode(String.self,
+                                      forKey: .name )
+        profile_path = try? container?.decode(String.self,
+                                              forKey: .profile_path)
+        credit_id = try? container?.decode(String.self,
+                                           forKey: .credit_id)
     }
 }
 
@@ -105,7 +111,8 @@ class Parse{
                             10770: "Телевизионный фильм", 53: "Триллер", 10752: "Военный",
                             37: "Вестерн"]
     
-    static func setMovie(urlString: String, complitionHandler: @escaping (Movie?)->()){
+    static func setMovie(urlString: String,
+                         complitionHandler: @escaping (Movie?)->()){
         guard let url = URL(string: urlString) else{return }
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in
@@ -143,5 +150,11 @@ class Parse{
         guard let url = URL(string: urlString) else{return Data()}
         guard let data = try? Data(contentsOf: url) else{return Data()}
         return data
+    }
+    
+    static func setVideo(path: String)->URL?{
+        let youtube = "https://www.youtube.com/watch?v="
+        guard let url = URL(string: youtube+path) else{return nil}
+        return url
     }
 }

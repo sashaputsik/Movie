@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+
 //MARK: UITableViewDataSource
 extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView,
@@ -15,7 +16,6 @@ extension ViewController: UITableViewDataSource{
             let voteAverage = topRatedMovies[indexPath.row].voteAverage,
             let ganreId = topRatedMovies[indexPath.row].genreIds?.first
                 else{return UITableViewCell()}
-        
         cell.accessoryView = cell.setFavoriteButton
         cell.setFavoriteButton.tag = indexPath.row
         cell.posterImageView.image = UIImage(data: Parse.setImage(path: posterPath))
