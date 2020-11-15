@@ -2,7 +2,7 @@ import CoreData
 import UIKit
 import SafariServices
 
-class OneMovieViewController: UIViewController {
+class OneMovieViewController: UIViewController, ViewsInterfaceProtocol {
 
     var id = 0
     var videoPath = ""
@@ -14,10 +14,15 @@ class OneMovieViewController: UIViewController {
     @IBOutlet weak var overviewTextView: UITextView!
     @IBOutlet weak var actorCollectionView: UICollectionView!
     @IBOutlet weak var setVideoButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var labels: [UILabel]!
     override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.startAnimating()
+        setHidden(is: false)
         performSelector(inBackground: #selector(setMovie),
                         with: nil)
         actorCollectionView.reloadData()
+        overviewTextView.frame.size = overviewTextView.contentSize
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +42,7 @@ class OneMovieViewController: UIViewController {
         setVideoButton.layer.shadowOffset = CGSize(width: 1,
                                                    height: 1)
         setVideoButton.layer.shadowOpacity = 0.8
+        
     }
     
     
@@ -50,12 +56,13 @@ class OneMovieViewController: UIViewController {
                 animated: true,
                 completion: nil)
     }
+    
     @objc
     private func setMovie(){
         let movieDetailsUrl = "https://api.themoviedb.org/3/movie/\(id)?api_key=d3c585cce88b277f42e68ce10aa4358f&append_to_response=videos"
-        Parse.setMovie(urlString: movieDetailsUrl) { (movie) in
+        Parse.setMovie(urlString: movieDetailsUrl,
+                       complitionHandler: { (movie) in
             DispatchQueue.main.async {
-                self.actorCollectionView.reloadData()
                 guard let backdropPath = movie?.backdropPath,
                     let posterPath = movie?.posterPath,
                     let voteAverage = movie?.voteAverage,
@@ -66,10 +73,29 @@ class OneMovieViewController: UIViewController {
                 self.overviewTextView.text = movie?.overview
                 self.voteAverage.text = "★ \(voteAverage)"
                 self.videoPath = videoPath
+                self.activityIndicator.stopAnimating()
+                self.setHidden(is: true)
+                self.actorCollectionView.reloadData()
             }
-        }
+        }, errorComplitionHandler: { error in
+            guard let statusMessage = error.statusMessage else{return }
+            self.present(self.setAlert(message: statusMessage), animated: true, completion: nil)
+        })
     }
 
+    func setHidden(is hidden: Bool){
+        activityIndicator.isHidden = hidden
+        actorCollectionView.isHidden = !hidden
+        overviewTextView.isHidden = !hidden
+        setVideoButton.isHidden = !hidden
+        posterImageView.isHidden = !hidden
+        backdropImageView.isHidden = !hidden
+        voteAverage.isHidden = !hidden
+        titleLabel.isHidden = !hidden
+        for label in labels{
+            label.isHidden = !hidden
+        }
+    }
 }
 
 //MARK: SFSafariViewControllerDelegate

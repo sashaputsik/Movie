@@ -3,9 +3,10 @@ import Foundation
 
 var topRatedMovies = [Movie]()
 var movieCredits = [Credits]()
+var error: Error?
 public let topRatedMovieUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=d3c585cce88b277f42e68ce10aa4358f&language=us-US&page=1"
 
-enum CodingKeys: String, CodingKey {
+enum CodingKeyss: String, CodingKey {
        case popularity
        case poster_path
        case id
@@ -15,6 +16,12 @@ enum CodingKeys: String, CodingKey {
        case videos
        case backdrop_path
        case overview
+    
+    enum ErrorKeys: String, CodingKey{
+        case status_code
+        case status_message
+        case success
+    }
    }
    
 
@@ -42,7 +49,7 @@ class Movie: Codable{
     }
     
     required init(from decoder: Decoder){
-        let container = try? decoder.container(keyedBy: CodingKeys.self)
+        let container = try? decoder.container(keyedBy: CodingKeyss.self)
         popularity = try? container?.decode(Float.self,
                                        forKey: .popularity)
         posterPath = try? container?.decode(String.self,
@@ -75,4 +82,21 @@ class Results: Codable{
     var name: String?
 }
 
+
+//MARK: parse sessions Error
+class Error: Codable{
+    var statusCode: String?
+    var statusMessage: String?
+    var success: Bool?
+    
+    required init(from decoder: Decoder) throws {
+        let containter = try? decoder.container(keyedBy: CodingKeyss.ErrorKeys.self)
+        statusCode = try? containter?.decode(String.self,
+                                             forKey: .status_code)
+        statusMessage = try? containter?.decode(String.self,
+                                                forKey: .status_message)
+        success = try? containter?.decode(Bool.self,
+                                          forKey: .success)
+    }
+}
 

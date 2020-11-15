@@ -40,18 +40,6 @@ class Credits: Codable{
     var name: String?
     var profile_path: String?
     var credit_id: String?
-    
-//    required init(decoder: Decoder) throws{
-//        let container = try? decoder.container(keyedBy: CodingKeys.self)
-//        character = try? container?.decode(String.self,
-//                                           forKey: .character)
-//        name = try? container?.decode(String.self,
-//                                      forKey: .name )
-//        profile_path = try? container?.decode(String.self,
-//                                              forKey: .profile_path)
-//        credit_id = try? container?.decode(String.self,
-//                                           forKey: .credit_id)
-//    }
 }
 
 class Person: Codable{

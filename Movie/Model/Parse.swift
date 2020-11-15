@@ -10,30 +10,46 @@ class Parse{
                             10770: "Телевизионный фильм", 53: "Триллер", 10752: "Военный",
                             37: "Вестерн"]
     
+    //MARK: parse Top or selected Movie
     static func setMovie(urlString: String,
-                         complitionHandler: @escaping (Movie?)->()){
+                         complitionHandler: @escaping (Movie?)->(),
+                         errorComplitionHandler: @escaping(Error)->()){
+        
         guard let url = URL(string: urlString) else{return }
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in
             guard let data = data else{return }
+            guard let response = response as? HTTPURLResponse else{return }
+            if response.statusCode > 400{
+                guard let error = try? JSONDecoder().decode(Error.self,
+                                                            from: data) else{return }
+                errorComplitionHandler(error)
+            }
             if urlString.contains("videos") {
                 let movie = try? JSONDecoder().decode(Movie.self,
                                                       from: data)
+                print(response.statusCode)
                 guard let id = movie?.id else{return }
-                Parse.setActors(fullInfo: false,
-                                  movie: id,
-                                  creditId: nil)
+                let queue = DispatchQueue.global(qos: .background)
+                queue.async {
+                    Parse.setActors(fullInfo: false,
+                                    movie: id,
+                                    creditId: nil)
+                }
                 complitionHandler(movie)
+                print(movie)
             }else{
                 let topMovie = try? JSONDecoder().decode(TopMovie.self,
                                                          from: data)
                 guard let results = topMovie?.results else{return }
                 topRatedMovies = results
+
             }
             complitionHandler(nil)
         }.resume()
     }
     
+    //MARK: parse Actors to selected Movie
     static func setActors(fullInfo: Bool, movie id: Int?, creditId: String?){
        
         guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(id ?? 0 )/credits?api_key=d3c585cce88b277f42e68ce10aa4358f") else{return }
@@ -48,15 +64,14 @@ class Parse{
                 guard let actors = movieActors?.cast else{return }
                 movieCredits = actors
             }else{
-                let movieActors = try? JSONDecoder().decode(FullActors.self,                from: data)
-
-                
-                print(movieActors?.person?.known_for)
+                let movieActors = try? JSONDecoder().decode(FullActors.self,
+                                                            from: data)
                 actor = movieActors
             }
         }.resume()
     }
     
+    //MARK: parse Image and Trailer
     static func setImage(path: String) -> Data{
         let urlString = "https://image.tmdb.org/t/p/w500"+path
         guard let url = URL(string: urlString) else{return Data()}

@@ -14,7 +14,6 @@ extension CreditsViewController: UICollectionViewDataSource{
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId",
                                                             for: indexPath) as? ActorsCollectionViewCell else{return UICollectionViewCell()}
         guard let movies = actor?.person?.known_for else{return UICollectionViewCell()}
-        cell.nameLabel.text = movies[indexPath.row].title
         guard let posterPath = movies[indexPath.row].posterPath else{return UICollectionViewCell()}
         cell.profileImageView.image = UIImage(data: Parse.setImage(path: posterPath))
         cell.profileImageView.layer.cornerRadius = 10
