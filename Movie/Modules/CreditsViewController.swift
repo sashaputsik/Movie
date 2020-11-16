@@ -1,6 +1,7 @@
 import UIKit
 
-class CreditsViewController: UIViewController, ViewsInterfaceProtocol {
+class CreditsViewController: UIViewController,
+                             ViewsInterfaceProtocol {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!

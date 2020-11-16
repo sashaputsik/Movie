@@ -1,6 +1,7 @@
 import UIKit
 
-class ViewController: UIViewController, ViewsInterfaceProtocol {
+class ViewController: UIViewController,
+                      ViewsInterfaceProtocol {
     var tags = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -12,7 +13,8 @@ class ViewController: UIViewController, ViewsInterfaceProtocol {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        Parse.setMovie(urlString: topRatedMovieUrl, complitionHandler: {_ in
+        Parse.setMovie(urlString: topRatedMovieUrl,
+                       complitionHandler: {_ in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.setHidden(is: false)
@@ -20,7 +22,9 @@ class ViewController: UIViewController, ViewsInterfaceProtocol {
         }, errorComplitionHandler: { error in
             DispatchQueue.main.async {
                 guard let statusMessage = error.statusMessage else{return}
-                self.present(self.setAlert(message: statusMessage), animated: true, completion: nil)
+                self.present(self.setAlert(message: statusMessage),
+                             animated: true,
+                             completion: nil)
             }
         })
     }

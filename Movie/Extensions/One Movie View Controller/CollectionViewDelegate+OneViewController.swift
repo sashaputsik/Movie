@@ -11,7 +11,7 @@ extension OneMovieViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
-                                                                  for: indexPath) as? ActorsCollectionViewCell else{return UICollectionViewCell()}
+                                                                  for: indexPath) as? CollectionViewCell else{return UICollectionViewCell()}
         cell.nameLabel.text = movieCredits[indexPath.row].name
         cell.profileImageView.layer.cornerRadius = 10
         if let profilePath = movieCredits[indexPath.row].profile_path{

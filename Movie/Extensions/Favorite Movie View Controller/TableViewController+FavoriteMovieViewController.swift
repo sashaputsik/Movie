@@ -13,7 +13,7 @@ extension FavoriteMoviesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.id,
-                                                       for: indexPath) as? TopRatedTableViewCell else{return UITableViewCell()}
+                                                       for: indexPath) as? TableViewCell else{return UITableViewCell()}
         guard let movie = frc?.object(at: indexPath) else{return UITableViewCell()}
         guard let posterPath = movie.posterPath else{return UITableViewCell()}
         cell.titleLabel.text = movie.title
@@ -34,6 +34,9 @@ extension FavoriteMoviesViewController: UITableViewDelegate{
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "OneMovieViewController") as? OneMovieViewController else{return }
         guard let movie = frc?.object(at: indexPath) else{return }
         vc.id = Int(movie.id)
+        present(self.setAlert(message: "Seccess! Add movie to favorite list"),
+                animated: true,
+                completion: nil) 
         showDetailViewController(vc,
                                  sender: nil)
     }

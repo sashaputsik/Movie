@@ -3,7 +3,9 @@ import Foundation
 
 var topRatedMovies = [Movie]()
 var movieCredits = [Credits]()
+var searchMovies = [Movie]()
 var error: Error?
+
 public let topRatedMovieUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=d3c585cce88b277f42e68ce10aa4358f&language=us-US&page=1"
 
 enum CodingKeyss: String, CodingKey {

@@ -10,6 +10,29 @@ class Parse{
                             10770: "Телевизионный фильм", 53: "Триллер", 10752: "Военный",
                             37: "Вестерн"]
     
+    //MARK: parse Search Movie
+    
+    static func searchMovie(of name: String,
+                            year: Int?,
+                            complitionHandler: @escaping ()->()){
+        var searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=d3c585cce88b277f42e68ce10aa4358f&language=en-US&query=\(name)&page=1&include_adult=false"
+        if year != nil{
+            guard let year = year else{return}
+            searchUrl+="&year=\(year)"
+        }
+        guard let url = URL(string: searchUrl) else{return }
+        let session = URLSession.shared
+        session.dataTask(with: url) { (data, response, error) in
+            guard let data = data else{return }
+            let moviesData = try? JSONDecoder().decode(TopMovie.self,
+                                              from: data)
+            guard let movies = moviesData?.results else{return}
+            searchMovies  = movies
+            print(searchMovies)
+            complitionHandler()
+        }.resume()
+    }
+    
     //MARK: parse Top or selected Movie
     static func setMovie(urlString: String,
                          complitionHandler: @escaping (Movie?)->(),
@@ -84,4 +107,6 @@ class Parse{
         guard let url = URL(string: youtube+path) else{return nil}
         return url
     }
+    
+    
 }

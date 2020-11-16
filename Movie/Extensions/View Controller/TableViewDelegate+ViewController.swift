@@ -11,7 +11,7 @@ extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.id,
-                                                       for: indexPath) as? TopRatedTableViewCell else{return UITableViewCell()}
+                                                       for: indexPath) as? TableViewCell else{return UITableViewCell()}
         guard let posterPath = topRatedMovies[indexPath.row].posterPath,
             let voteAverage = topRatedMovies[indexPath.row].voteAverage,
             let ganreId = topRatedMovies[indexPath.row].genreIds?.first
