@@ -22,7 +22,7 @@ class ViewController: UIViewController,
         }, errorComplitionHandler: { error in
             DispatchQueue.main.async {
                 guard let statusMessage = error.statusMessage else{return}
-                self.present(self.setAlert(message: statusMessage),
+                self.present(self.setAlert(title: "Error", message: statusMessage),
                              animated: true,
                              completion: nil)
             }
@@ -41,8 +41,8 @@ class ViewController: UIViewController,
 
 
 extension UIViewController{
-    func setAlert(message: String) -> UIAlertController{
-        let alertControler = UIAlertController(title: "Error",
+    func setAlert(title: String, message: String) -> UIAlertController{
+        let alertControler = UIAlertController(title: title,
                                                message: message,
                                                preferredStyle: .actionSheet)
         let action = UIAlertAction(title: "Okey",

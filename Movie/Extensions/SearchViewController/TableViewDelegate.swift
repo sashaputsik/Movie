@@ -15,6 +15,7 @@ extension SearchViewController: UITableViewDataSource{
         guard let posterPath = searchMovies[indexPath.row].posterPath,
               let genreId = searchMovies[indexPath.row].genreIds?.first,
               let voteAverage = searchMovies[indexPath.row].voteAverage else{return UITableViewCell()}
+        cell.accessoryView = cell.setFavoriteButton
         cell.posterImageView.image = UIImage(data: Parse.setImage(path: posterPath))
         cell.titleLabel.text = searchMovies[indexPath.row].title
         cell.genreLabel.text = Parse.genreArray[genreId]

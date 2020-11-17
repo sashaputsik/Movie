@@ -31,12 +31,11 @@ extension FavoriteMoviesViewController: UITableViewDataSource{
 extension FavoriteMoviesViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath,
+                              animated: true)
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "OneMovieViewController") as? OneMovieViewController else{return }
         guard let movie = frc?.object(at: indexPath) else{return }
         vc.id = Int(movie.id)
-        present(self.setAlert(message: "Seccess! Add movie to favorite list"),
-                animated: true,
-                completion: nil) 
         showDetailViewController(vc,
                                  sender: nil)
     }

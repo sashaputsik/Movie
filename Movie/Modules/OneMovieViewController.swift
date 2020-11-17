@@ -55,7 +55,7 @@ class OneMovieViewController: UIViewController,
         movie.voteAverage = voteAverage
         context.insert(movie)
         DataConfig().appDelegate.saveContext()
-        present(self.setAlert(message: "Success! Movie add to favorite list"),
+        present(self.setAlert(title: "Success!", message: "Movie add to favorite list"),
                 animated: true,
                 completion: nil)
     }
@@ -75,7 +75,7 @@ class OneMovieViewController: UIViewController,
     fileprivate func setBlurEffect()-> UIVisualEffectView{
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.alpha = 0.9
+        blurEffectView.alpha = 0.75
         blurEffectView.frame = backdropImageView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth,
                                            .flexibleHeight]
@@ -105,7 +105,7 @@ class OneMovieViewController: UIViewController,
             }
         }, errorComplitionHandler: { error in
             guard let statusMessage = error.statusMessage else{return }
-            self.present(self.setAlert(message: statusMessage), animated: true, completion: nil)
+            self.present(self.setAlert(title: "Error", message: statusMessage), animated: true, completion: nil)
         })
     }
 

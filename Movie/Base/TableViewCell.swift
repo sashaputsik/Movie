@@ -10,6 +10,11 @@ class TableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setFavoriteButton.layer.shadowOffset = CGSize(width: 1,
+                                                      height: 1)
+        setFavoriteButton.layer.shadowOpacity = 0.6
+        setFavoriteButton.layer.shadowColor = UIColor.lightGray.cgColor
+        
         posterImageView.layer.mask = setConfig(10,
                                                roundingCorners: [.topLeft,
                                                                      .bottomRight],
@@ -37,9 +42,8 @@ class TableViewCell: UITableViewCell {
         movie.voteAverage = voteAverage
         print(voteAverage)
         context.insert(movie)
-        
         DataConfig().appDelegate.saveContext()
-        print(context)
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

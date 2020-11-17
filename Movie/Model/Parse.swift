@@ -28,7 +28,7 @@ class Parse{
                                               from: data)
             guard let movies = moviesData?.results else{return}
             searchMovies  = movies
-            print(searchMovies)
+            print(movies)
             complitionHandler()
         }.resume()
     }

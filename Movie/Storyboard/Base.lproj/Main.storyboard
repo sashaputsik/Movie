@@ -387,7 +387,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btV-OF-zfY">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1007"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbn-ZO-ktT">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hbn-ZO-ktT">
                                                 <rect key="frame" x="15" y="345" width="61" height="109"/>
                                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="26"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -704,7 +704,7 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <namedColor name=" BackgroundColor">
-            <color red="0.136459738" green="0.16041278840000001" blue="0.185408026" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13600000739097595" green="0.15999999642372131" blue="0.18500000238418579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
