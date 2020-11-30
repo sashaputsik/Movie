@@ -6,8 +6,11 @@ extension SearchViewController: UISearchBarDelegate{
         guard let searchMovie = searchBar.text else{return}
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
+        let dateComponents = Calendar.current.dateComponents([.year],
+                                                             from: searchMovieYearDatePicker.date)
+        let year = dateComponents.year
         Parse.searchMovie(of: searchMovie,
-                          year: nil) {
+                          year: year) {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.tableView.isHidden = false

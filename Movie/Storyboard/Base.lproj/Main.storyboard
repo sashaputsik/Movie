@@ -209,14 +209,15 @@
                                     <outlet property="delegate" destination="9tu-Te-rRM" id="zqF-nP-KZw"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siv-Nd-Exa">
-                                <rect key="frame" x="15" y="20" width="77" height="31"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="26"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeq-uF-2uU">
+                                <rect key="frame" x="0.0" y="10" width="127.5" height="56"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <date key="date" timeIntervalSinceReferenceDate="627556045.00912702">
+                                    <!--2020-11-20 09:07:25 +0000-->
+                                </date>
+                            </datePicker>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="hbs-hj-NOO">
-                                <rect key="frame" x="107" y="10" width="253" height="56"/>
+                                <rect key="frame" x="146.5" y="10" width="228.5" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -234,23 +235,25 @@
                         <color key="backgroundColor" name=" BackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="h7V-53-D6p" secondAttribute="bottom" id="2MN-5I-RPq"/>
-                            <constraint firstItem="siv-Nd-Exa" firstAttribute="top" secondItem="Csz-54-fDC" secondAttribute="top" constant="20" id="8WV-1b-9ey"/>
                             <constraint firstItem="h7V-53-D6p" firstAttribute="leading" secondItem="Csz-54-fDC" secondAttribute="leading" id="8tx-ux-aJ6"/>
                             <constraint firstItem="h7V-53-D6p" firstAttribute="trailing" secondItem="Csz-54-fDC" secondAttribute="trailing" id="TxY-RL-say"/>
-                            <constraint firstItem="Csz-54-fDC" firstAttribute="trailing" secondItem="hbs-hj-NOO" secondAttribute="trailing" constant="15" id="VH8-Hj-fbz"/>
+                            <constraint firstItem="hbs-hj-NOO" firstAttribute="leading" secondItem="jeq-uF-2uU" secondAttribute="trailing" constant="19" id="awK-qa-CGl"/>
                             <constraint firstItem="HpC-TN-XoF" firstAttribute="centerY" secondItem="L4d-30-GF4" secondAttribute="centerY" id="g4s-cW-Gya"/>
-                            <constraint firstItem="siv-Nd-Exa" firstAttribute="leading" secondItem="Csz-54-fDC" secondAttribute="leading" constant="15" id="gL2-sN-sr7"/>
-                            <constraint firstItem="hbs-hj-NOO" firstAttribute="leading" secondItem="siv-Nd-Exa" secondAttribute="trailing" constant="15" id="h76-0r-eax"/>
+                            <constraint firstItem="h7V-53-D6p" firstAttribute="top" secondItem="hbs-hj-NOO" secondAttribute="bottom" constant="15" id="gvn-cc-CQU"/>
+                            <constraint firstItem="jeq-uF-2uU" firstAttribute="leading" secondItem="Csz-54-fDC" secondAttribute="leading" id="hGC-jH-HAb"/>
+                            <constraint firstItem="hbs-hj-NOO" firstAttribute="trailing" secondItem="Csz-54-fDC" secondAttribute="trailing" id="l0n-LB-Cjp"/>
                             <constraint firstItem="HpC-TN-XoF" firstAttribute="centerX" secondItem="L4d-30-GF4" secondAttribute="centerX" id="l2c-yW-xWP"/>
-                            <constraint firstItem="h7V-53-D6p" firstAttribute="top" secondItem="siv-Nd-Exa" secondAttribute="bottom" constant="30" id="oe7-Nx-U96"/>
-                            <constraint firstItem="hbs-hj-NOO" firstAttribute="top" secondItem="Csz-54-fDC" secondAttribute="top" constant="10" id="uUg-uc-lug"/>
+                            <constraint firstItem="jeq-uF-2uU" firstAttribute="top" secondItem="Csz-54-fDC" secondAttribute="top" constant="10" id="qZj-5u-9x0"/>
+                            <constraint firstItem="jeq-uF-2uU" firstAttribute="bottom" secondItem="hbs-hj-NOO" secondAttribute="bottom" id="s1K-Xi-vLv"/>
+                            <constraint firstItem="Csz-54-fDC" firstAttribute="trailing" secondItem="jeq-uF-2uU" secondAttribute="trailing" constant="247.5" id="uFq-Ei-qHd"/>
+                            <constraint firstItem="hbs-hj-NOO" firstAttribute="top" secondItem="Csz-54-fDC" secondAttribute="top" constant="10" id="wB8-gX-Ssl"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="yZG-ip-Ycl"/>
                     <connections>
                         <outlet property="activityIndicator" destination="HpC-TN-XoF" id="Rhg-z8-pfr"/>
-                        <outlet property="labels" destination="siv-Nd-Exa" id="lRb-Nc-7Gm"/>
                         <outlet property="searchBar" destination="hbs-hj-NOO" id="qsQ-7Y-75q"/>
+                        <outlet property="searchMovieYearDatePicker" destination="jeq-uF-2uU" id="4to-cC-iDG"/>
                         <outlet property="tableView" destination="h7V-53-D6p" id="yQ8-wm-3oQ"/>
                     </connections>
                 </viewController>

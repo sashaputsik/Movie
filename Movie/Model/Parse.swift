@@ -24,12 +24,16 @@ class Parse{
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in
             guard let data = data else{return }
-            let moviesData = try? JSONDecoder().decode(TopMovie.self,
-                                              from: data)
-            guard let movies = moviesData?.results else{return}
-            searchMovies  = movies
-            print(movies)
-            complitionHandler()
+            let queue = DispatchQueue.global()
+            
+            queue.async {
+                let moviesData = try? JSONDecoder().decode(TopMovie.self,
+                                                  from: data)
+                guard let movies = moviesData?.results else{return}
+                searchMovies  = movies
+                print(movies)
+                complitionHandler()
+            }
         }.resume()
     }
     
@@ -53,7 +57,7 @@ class Parse{
                                                       from: data)
                 print(response.statusCode)
                 guard let id = movie?.id else{return }
-                let queue = DispatchQueue.global(qos: .background)
+                let queue = DispatchQueue.global(qos: .userInitiated)
                 queue.async {
                     Parse.setActors(fullInfo: false,
                                     movie: id,
@@ -81,15 +85,20 @@ class Parse{
         let session = URLSession.shared
         session.dataTask(with: fullInfo ? fullInfoUrl : url) { (data, response, error) in
             guard let data = data else{return }
-            if !fullInfo{
-                let movieActors = try? JSONDecoder().decode(Actors.self,
-                from: data)
-                guard let actors = movieActors?.cast else{return }
-                movieCredits = actors
-            }else{
-                let movieActors = try? JSONDecoder().decode(FullActors.self,
-                                                            from: data)
-                actor = movieActors
+            let queue = DispatchQueue.global(qos: .userInitiated)
+            
+            queue.async {
+                if !fullInfo{
+                    let movieActors = try? JSONDecoder().decode(Actors.self,
+                    from: data)
+                    guard let actors = movieActors?.cast else{return }
+                    movieCredits = actors
+                }else{
+                    let movieActors = try? JSONDecoder().decode(FullActors.self,
+                                                                from: data)
+                    actor = movieActors
+                }
+                
             }
         }.resume()
     }
@@ -98,6 +107,7 @@ class Parse{
     static func setImage(path: String) -> Data{
         let urlString = "https://image.tmdb.org/t/p/w500"+path
         guard let url = URL(string: urlString) else{return Data()}
+        let queue = DispatchQueue.global(qos: .userInteractive)
         guard let data = try? Data(contentsOf: url) else{return Data()}
         return data
     }
